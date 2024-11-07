@@ -1,0 +1,12 @@
+server:
+  port: 9090
+  sessionTimeout: 5
+
+spring:
+  application:
+    name: digital-signer
+springdoc:
+  swagger-ui:
+    enabled: true
+cert:
+  truststore: "D:/git/WIP/digital-signer/src/main/resources/wksigner.jks"

@@ -1,0 +1,109 @@
+openapi: 3.0.1
+info:
+  title: Digital Signature API
+  description: API for signing files and verifying the signature.
+  version: 1.0.0
+paths:
+  /api/sign:
+    post:
+      summary: Sign a file
+      description: Signs a file and returns either a combined signed file or just the signature.
+      operationId: signFile
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The file to be signed.
+                combined_file:
+                  type: boolean
+                  default: true
+                  description: Flag to indicate if the signature should be combined with the original.
+      responses:
+        '200':
+          description: Signed file or signature successfully downloaded
+          content:
+            application/octet-stream:
+              schema:
+                type: object
+                format: binary
+                description: The signed file returned as a binary stream.
+        '400':
+          description: Invalid input parameters / Required parameters missing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message explaining the invalid input.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message explaining the server error.
+  /api/verify:
+    post:
+      summary: Verify signature
+      description: Verifies a signature of a combined file or a original file and signature.
+      operationId: verifyFile
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The file to be verified
+                signature:
+                  type: string
+                  format: binary
+                  description: The signature file if the combined file is false.
+                combined_file:
+                  type: boolean
+                  default: true
+                  description: Flag to indicate if the signature is included in the file.
+      responses:
+        '200':
+          description: Signed file or signature successfully downloaded
+          content:
+            application/json:
+              schema:
+                type: string
+                format: json
+                description: Result of the verification.
+                example: { status: string, details: values }
+        '400':
+          description: Invalid input parameters / Required parameters missing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message explaining the invalid input.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message explaining the server error.

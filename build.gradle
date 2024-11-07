@@ -1,0 +1,49 @@
+plugins {
+	id 'groovy'
+	id 'org.springframework.boot' version '3.3.4'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.wkelms.ebilling'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+bootJar {
+	mainClass.set('com.wkelms.ebilling.digsig.DigitalSignerApplication')
+	exclude ("*.jks")
+	exclude ("*.yml*")
+	exclude ("*.xml")
+	exclude ("*.js")
+	exclude ("*.exe")
+}
+
+task dist(type: Copy, dependsOn: bootJar) {
+	def distDir = file ('build/dist/')
+	distDir.mkdir()
+	from 'build/libs'
+	into 'build/dist'
+	include "${project.name}-${project.version}.jar"
+	rename("${project.name}-${project.version}.jar","DigitalSignerApplication-${project.version}.jar")
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.apache.groovy:groovy-all:4.0.22'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

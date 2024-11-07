@@ -1,0 +1,138 @@
+<html>
+<head>
+  <title>WK Signer</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css'>
+  <link rel="stylesheet" href="./style.css">
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  </script><script  src="./script.js"></script>
+
+</head>
+
+<body translate="no">
+  <h1>Digital Signature</h1>
+<div class="tabs">
+  
+  <input type="radio" id="tab1" name="tab-control" checked="">
+  <input type="radio" id="tab2" name="tab-control">
+  <ul>
+    <li title="Sign"><label for="tab1" role="button"><span class="material-icons icon12" >fingerprint</span><br><span>Sign</span></label></li>
+    <li title="Verify"><label for="tab2" role="button"><span class="material-icons icon12" >verified_user</span><br><span>Verify</span></label></li>
+  </ul>
+  
+  <div class="slider"><div class="indicator"></div></div>
+  <div class="content">
+    <section class="sec12">
+	  <div class="field">
+		<label> Upload a file to sign</label>
+		<input type="file" id="sign-file" hidden/>
+		<div class="s-file-ctrl">
+		<label class="upload12" for="sign-file" id="s-actual-lbl">Choose File</label>
+		<span class="no-file">No file chosen </span>
+		</div>
+		<div class="s-file-chosen" style="display:none">
+			<span id="s-file-chosen" class="file-loaded"></span><span class="material-icons icon12 icon34" id="s-del" >delete</span>
+		</div>
+	  </div>
+	  <div class="field">
+		<div class="checkbox-wrapper-14">
+		  <input id="s_combined_file" type="checkbox" checked class="switch">
+		  <label for="s_combined_file">Combine data and signature</label>
+		</div>
+	  </div>
+	  <div style="height:97px; width:100%; clear:both;"></div>
+	  <div class="field">
+	  <label id="s-err" class="error"></label>
+	  <hr class="sep-2" /><br style="line-height: 50%;"/>
+	  <button id="sign-btn" class="button-3" role="button">Sign and Download</button>
+	  </div>
+	  
+	</section>
+	
+	
+    <section class="sec12">
+      <div class="field">
+		<label> Upload a file to verify</label>
+		<input type="file" id="verify-file" hidden/>
+		<div class="v1-file-ctrl">
+		<label class="upload12" for="verify-file" id="v1-actual-lbl">Choose File</label>
+		<span class="v1-no-file">No file chosen </span>
+		</div>
+		<div class="v1-file-chosen" style="display:none">
+			<span id="v1-file-chosen" class="file-loaded"></span><span class="material-icons icon12 icon34" id="v1-del" >delete</span>
+		</div>
+	  </div>  
+	   <div class="field">
+		<div class="checkbox-wrapper-14">
+		  <input id="v_combined_file" type="checkbox" checked class="switch">
+		  <label for="v_combined_file">File has data and signature combined</label>
+		</div>
+	  </div>
+	  <div class="field" id="v2-sign" >
+		<label> Upload signature file</label>
+		<input type="file" id="verify-sign-file" hidden/>
+		<div class="v2-file-ctrl">
+		<label class="upload12" for="verify-sign-file" id="v2-actual-lbl">Choose File</label>
+		<span class="v2-no-file">No file chosen </span>
+		</div>
+		<div class="v2-file-chosen" style="display:none">
+			<span id="v2-file-chosen" class="file-loaded"></span><span class="material-icons icon12 icon34" id="v2-del" >delete</span>
+		</div>
+	  </div>
+	  <div style="height:97px; width:100%; clear:both;" id="empty"></div>	
+	  <div class="field">
+	  <label id="v-err" class="error"></label>
+	  <hr class="sep-2" /><br style="line-height: 50%;"/>
+	  <button id="verify-btn" class="button-3" role="button">Verify Signature</button>	
+		</div>	  
+	</section>
+  </div>
+	<div class="api"><a href="api-doc.html" target="_blank"><span style="display:block;" class="material-icons">dashboard</span>API Doc</a></div>
+</div>
+  
+  <div id="results" class="tabs" style="position:absolute; top:110px; width:45%; height:380px; display:none">
+	<span class="material-icons close-btn">highlight_off</span>
+	
+	
+<div style="height:160px; width:100%; clear:both;text-align: center;">
+<span class="material-icons success_status">verified_user</span>
+<span class="material-icons fail_status">report</span><br />
+
+<span style="font-family: 'Montserrat';font-size: 18px;font-weight: bold" id="signDesc"></span>
+</div>	
+
+<table>
+<tbody>
+<tr>
+<td>Status</td>
+<td id="signStatus"></td>
+</tr>
+<tr>
+<td>Time Verified</td>
+<td id="timeVerified"></td>
+</tr>
+<tr>
+<td>Hash Algorithm</td>
+<td id="hashAlgorithm"></td>
+</tr>
+<tr>
+<td>Signature Algorithm</td>
+<td id="signAlgorithm"></td>
+</tr>
+<tr>
+<td>Key Length</td>
+<td id="keyLength"></td>
+</tr>
+<tr>
+<td>Original Filename</td>
+<td id="origFile"></td>
+</tr>
+<tr>
+<td>Time Created</td>
+<td id="timeCreated"></td>
+</tr>
+</tbody></table>
+	
+	
+  </div>
+ 
+</body></html>
